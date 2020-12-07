@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
+<head>
+    <title>Add Item</title>
+ 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="../static/js/jquery-1.11.2.js"></script>
+
+    <script>
+        $(function(){
+
+            $("#kodeitem").val(Date.now());
+
+            $('#btnsave').click(function(){
+                
+                var kodeitem = $("#kodeitem").val();
+                var namaitem = $("#namaitem").val();
+                var kategori = $("#kategori").val();
+                var jumlah = $("#jumlah").val();
+
+                if(kodeitem == "")
+                    alert("kode item masih kosong");
+                
+                else if(namaitem == "")
+                    alert("nama item masih kosong");
+                
+                else if(kategori == "")
+                    alert("kategori item masih kosong");
+                
+                else if(jumlah == "" || jumlah == 0)
+                    alert("jumlah item masih kosong");
+
+                else
+                {
+                    $.ajax({
+                        url: '/actadditem',
+                        data: $('form').serialize(),
+                        type: 'POST',
+                        success: function(response){
+                            var res =  JSON.parse(response)
+                            alert(res.message);
+                        },
+                        error: function(error){
+                            console.log(error);
+                        }
+                    });
+                }
+                
+            });
+        });
+    </script>
+</head>
+ 
+<body>
+    <div class="container ">
+        
+        {% include 'nav.html' %}
+
+        <div class="card mt-2">
+            <div class="card-body">
+                <h4>Tambah Item</h4>
+                
+                <hr />
+                <form>
+                    <div class="form-group">
+                        <label for="kodeitem">Kode Item</label>
+                        <input type="text" class="form-control" id="kodeitem" name="kodeitem" placeholder="masukkan kodeitem..">
+                    </div>
+                    <div class="form-group">
+                        <label for="namaitem">Nama Item</label>
+                        <input type="text" class="form-control" id="namaitem" name="namaitem" placeholder="masukkan namaitem..">
+                    </div>
+                    <div class="form-group">
+                        <label for="kategori">Kategori</label>
+                        <select type="text" class="form-control" id="kategori" name="kategori">
+                            <option>Pilih Data..</option>
+                            <option value="Minuman">Minuman</option>
+                            <option value="Makanan">Makanan</option>
+                            <option value="Obat">Obat</option>
+                            <option value="Barang">Barang</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="keterangan">Keterangan</label>
+                        <input type="text" class="form-control" id="keterangan" name="keterangan" placeholder="masukkan keterangan..">
+                    </div>
+                    <div class="form-group">
+                        <label for="jumlah">Jumlah</label>
+                        <input type="text" class="form-control" id="jumlah" name="jumlah" placeholder="masukkan jumlah..">
+                    </div>
+                    <button type="button" id="btnsave" class="btn btn-primary">Submit</button>
+                </form>
+
+            </div>
+        </div>
+
+
+ 
+        {% include 'footer.html' %}
+ 
+    </div>
+</body>
+ 
+</html>

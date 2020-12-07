@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
+<head>
+    <title>List Item</title>
+ 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="../static/js/jquery-1.11.2.js"></script>
+
+</head>
+ 
+<body>
+    <div class="container ">
+        
+        {% include 'nav.html' %}
+
+        <div class="card mt-2">
+            <div class="card-body">
+                <h4>List Item</h4>
+                
+                <hr />
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th>Kode Item</th>
+                        <th>Nama Item</th>
+                        <th>Kategori</th>
+                        <th>Jumlah</th>
+                        <th width="10%" colspan="2">Aksi</th>
+                    </tr>
+                    </thead>
+                 
+                        <tbody>
+                          {% for row in rows %}
+                          <tr>
+                             <td>{{ row['kodeitem'] }}</td>
+                             <td>{{ row['namaitem'] }}</td>
+                             <td>{{ row['kategori'] }}</td>
+                             <td>{{ row['jumlah'] }}</td>
+                             <td><a href="/edititem/{{row['kodeitem']}}" class="btn btn-warning" role="button">Ubah</a></td>
+                             <td><a href="/acthapusitem/{{row['kodeitem']}}" class="btn btn-danger" role="button">Hapus</a></td>
+                          </tr>
+                       {% endfor %}
+                        </tbody>
+                 </table>
+            </div>
+        </div>
+
+
+ 
+        {% include 'footer.html' %}
+ 
+    </div>
+</body>
+ 
+</html>
